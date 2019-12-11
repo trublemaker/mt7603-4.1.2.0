@@ -47,8 +47,8 @@
 #endif
 
 #if defined(CONFIG_RA_HW_NAT) || defined(CONFIG_RA_HW_NAT_MODULE)
-#include "../../../../../../../../net/nat/hw_nat/ra_nat.h"
-#include "../../../../../../../../net/nat/hw_nat/frame_engine.h"
+#include "../../../../../net/nat/hw_nat/ra_nat.h"
+#include "../../../../../net/nat/hw_nat/frame_engine.h"
 #endif
 
 /* TODO */
@@ -2363,6 +2363,7 @@ VOID RtmpOsPktNatMagicTag(IN PNDIS_PACKET pNetPkt)
 {
 #if !defined(CONFIG_RA_NAT_NONE)
 #if defined (CONFIG_RA_HW_NAT)  || defined (CONFIG_RA_HW_NAT_MODULE)
+	#define FOE_MAGIC_WLAN 0x7274
 	struct sk_buff *pRxPkt = RTPKT_TO_OSPKT(pNetPkt);
 	FOE_MAGIC_TAG(pRxPkt) = FOE_MAGIC_WLAN;
 #endif /* CONFIG_RA_HW_NAT || CONFIG_RA_HW_NAT_MODULE */

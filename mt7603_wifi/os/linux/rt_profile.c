@@ -30,8 +30,8 @@
 #endif
 
 #if defined (CONFIG_RA_HW_NAT)  || defined (CONFIG_RA_HW_NAT_MODULE)
-#include "../../../../../../../../net/nat/hw_nat/ra_nat.h"
-#include "../../../../../../../../net/nat/hw_nat/frame_engine.h"
+#include "../../../../../net/nat/hw_nat/ra_nat.h"
+#include "../../../../../net/nat/hw_nat/frame_engine.h"
 #endif
 
 
@@ -58,7 +58,7 @@
 #define FIRST_AP_PROFILE_PATH		"/etc/wireless/mt7603e/mt7603.dat"
 #else
 #define FIRST_EEPROM_FILE_PATH	"/etc_ro/Wireless/RT2860/"
-#define FIRST_AP_PROFILE_PATH		"/etc/Wireless/RT2860/RT2860.dat"
+#define FIRST_AP_PROFILE_PATH		"/etc/Wireless/RT2860/RT2860AP.dat"
 #endif
 #define FIRST_CHIP_ID	xdef_to_str(CONFIG_RT_FIRST_CARD)
 
