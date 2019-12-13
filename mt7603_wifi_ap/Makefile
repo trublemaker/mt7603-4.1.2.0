@@ -1,20 +1,22 @@
+
 ifeq ($(CONFIG_SUPPORT_OPENWRT),y)
 ccflags-y = -I$(src)/../mt7603_wifi/include \
 		-I$(src)/../mt7603_wifi/ate/include
-DRV_NAME = mt7603e
+DRV_NAME = mt76x3_ap
 RT_WIFI_DIR = ../mt7603_wifi
 
 else
-ccflags-y = -Idrivers/net/wireless/mtk/mt7603e/mt7603_wifi/include \
-		-Idrivers/net/wireless/mtk/mt7603e/mt7603_wifi/ate/include
-#EXTRA_CFLAGS = -Idrivers/net/wireless/mtk/mt7603e/mt7603_wifi/include \
-		-Idrivers/net/wireless/mtk/mt7603e/mt7603_wifi/ate/include
+ccflags-y = -Idrivers/net/wireless/ralink/mt76x3/include \
+		-Idrivers/net/wireless/ralink/mt76x3/ate/include
+#EXTRA_CFLAGS = -Idrivers/net/wireless/ralink/mt76x3/include \
+		-Idrivers/net/wireless/ralink/mt76x3/ate/include
 
 WIFI_HEAD_GEN  = $(shell make -C drivers/net/wireless/rlt_wifi RT28xx_MODE=AP CHIPSET=mt7603e EE_TYPE=$(CONFIG_MT7603E_PA_LNA) sdk_build_tools >/dev/null)
 
-DRV_NAME = mt7603_wifi
+DRV_NAME = mt76x3_ap
 RT_WIFI_DIR = ../mt7603_wifi
 endif
+
 
 ########################################################
 # Common files
@@ -132,13 +134,29 @@ ifeq ($(CONFIG_MT7603E_RTMP_USB_SUPPORT),y)
 		$(RT_WIFI_DIR)/os/linux/usb_main_dev.o
 endif
 
+ifeq ($(CONFIG_RT_DEBUG),y)
+	MTDEBUG = y
+else
+	ifeq ($(CONFIG_MT76X3_AP_DEBUG),y)
+	MTDEBUG = y
+	endif
+endif
+
+ifeq ($(MTDEBUG),y)
+	EXTRA_CFLAGS += -DDBG -DUAPSD_DEBUG
+	EXTRA_CFLAGS += -DTXRXCR_DEBUG_SUPPORT
+	#EXTRA_CFLAGS += -DDBG_DIAGNOSE -DDBG_RX_MCS -DDBG_TX_MCS
+	EXTRA_CFLAGS += -DSYSTEM_LOG_SUPPORT
+	#EXTRA_CFLAGS += -DINT_STATISTIC
+	$(RT_DRV_NAME)-objs += $(RT_DRV_PATH)/common/sys_log.o
+endif
 ########################################################
 # Spec feature related files
 ########################################################
 spec_objs += $(RT_WIFI_DIR)/common/ps.o
 
 ifeq ($(CONFIG_MT7603E_UAPSD),y)
-    EXTRA_CFLAGS += -DUAPSD_SUPPORT -DUAPSD_DEBUG
+    EXTRA_CFLAGS += -DUAPSD_SUPPORT
      spec_objs += $(RT_WIFI_DIR)/common/uapsd.o
 endif
 
@@ -432,6 +450,12 @@ ifeq ($(CONFIG_MT7603E_LED_CONTROL_SUPPORT),y)
         EXTRA_CFLAGS += -DWSC_LED_SUPPORT
     endif
 
+    ifeq ($(CONFIG_MT76X3_AP_LED_SOFT),y)
+    	EXTRA_CFLAGS += -DMT76X3_AP_LED_SOFT
+    endif
+    
+	EXTRA_CFLAGS += -DLED_SOFT_BLINK_GPIO=$(CONFIG_MT76X3_AP_LED_SOFT_GPIO)
+
     func_objs += $(RT_WIFI_DIR)/common/rt_led.o
 endif
 
@@ -701,10 +725,17 @@ endif
 #                    $(RT_WIFI_DIR)/chips/rt305x.o\
 #                    $(RT_WIFI_DIR)/chips/rt5350.o
 #endif
-CONFIG_PROPRIETARY_DRIVER=y
+
+#CONFIG_PROPRIETARY_DRIVER=y
 ifeq ($(CONFIG_PROPRIETARY_DRIVER),y)
 EXTRA_CFLAGS += -DCONFIG_PROPRIETARY_DRIVER
 endif
+
+#CONFIG_RALINK_FLASH_API=y
+ifeq ($(CONFIG_RALINK_FLASH_API),y)
+EXTRA_CFLAGS += -DCONFIG_RALINK_FLASH_API
+endif
+
 #ifeq ($(CONFIG_RALINK_RT6352),y)
 #EXTRA_CFLAGS += -DRT6352 -DRTMP_RF_RW_SUPPORT -DRTMP_FLASH_SUPPORT -DCONFIG_SWMCU_SUPPORT
 #EXTRA_CFLAGS += -DRTMP_RBUS_SUPPORT -DRTMP_MAC_PCI
