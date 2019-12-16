@@ -1682,7 +1682,7 @@ INT set_get_fid(RTMP_ADAPTER *pAd, RTMP_STRING *arg)
     head_fid_addr = head_fid_addr & 0xfff;
 
     if (head_fid_addr == 0xfff) {
-        DBGPRINT(RT_DEBUG_ERROR, ("%s, q_idx:%d empty!!\n", __func__, q_idx));
+        DBGPRINT(RT_DEBUG_INFO, ("%s, q_idx:%d empty!!\n", __func__, q_idx));
         return TRUE;
     }
 

@@ -26,6 +26,9 @@
 
 #include "rt_config.h"
 
+#ifdef LED_CONTROL_SUPPORT
+#include <ralink/ralink_gpio.h>
+#endif
 
 UCHAR	SNAP_802_1H[] = {0xaa, 0xaa, 0x03, 0x00, 0x00, 0x00};
 UCHAR	SNAP_BRIDGE_TUNNEL[] = {0xaa, 0xaa, 0x03, 0x00, 0x00, 0xf8};
@@ -992,6 +995,7 @@ NDIS_STATUS MiniportMMRequest(RTMP_ADAPTER *pAd, UCHAR QueIdx, UCHAR *pData, UIN
 		if (bUseDataQ)
 		{
 			/* free Tx(QueIdx) resources*/
+			//DBGPRINT(RT_DEBUG_OFF, ("::::::::RTMPFreeTXDUponTxDmaDone (error:: RTMPFreeTXDUponTxDmaDone)\n"));
 			RTMPFreeTXDUponTxDmaDone(pAd, QueIdx);
 			FreeNum = GET_TXRING_FREENO(pAd, QueIdx);
 		}
@@ -1049,6 +1053,7 @@ NDIS_STATUS MiniportMMRequest(RTMP_ADAPTER *pAd, UCHAR QueIdx, UCHAR *pData, UIN
 #ifdef WIFI_DIAG
 			DiagMiniportMMRequest(pAd, pData, Length);
 #endif
+			//DBGPRINT(RT_DEBUG_OFF, ("::::::::MlmeHardTransmit (error:: MlmeHardTransmit)\n"));
 			Status = MlmeHardTransmit(pAd, QueIdx, pPacket, FlgDataQForce, FlgIsLocked, FlgIsCheckPS);
 			if (Status == NDIS_STATUS_SUCCESS)
 				retryCnt = 0;
@@ -3808,6 +3813,16 @@ VOID RTMPDeQueuePacket(
 		releaseNetIf(&pAd->blockQueueTab[QueIdx]);
 	}
 #endif /* BLOCK_NET_IF */
+
+#if defined (MT76X3_AP_LED_SOFT)
+	//#define STR1(R) #R	 
+	//#define STR2(R) STR1(R)
+	//#pragma message "MT76X3_AP_LED_SOFT: " STR2( MT76X3_AP_LED_SOFT )
+	//#pragma message "LED_SOFT_BLINK_GPIO: " STR2( LED_SOFT_BLINK_GPIO )
+
+	if (Count > 0 && pAd->MacTab.Size > 0)
+		ralink_gpio_led_blink(LED_SOFT_BLINK_GPIO);
+#endif
 
 }
 

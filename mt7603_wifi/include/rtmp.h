@@ -5585,7 +5585,7 @@ MONITOR_STRUCT monitor_ctrl;
 	/* EDCCA related param  END */
 #ifdef ANTI_INTERFERENCE_SUPPORT
 	BOOLEAN bDynamicRaInterval;
-	INT8 ra_interval_extend;
+	UINT8 ra_interval_extend;
 #endif /* ANTI_INTERFERENCE_SUPPORT */
 	UINT32 OneSecChBusyTime;
 	BOOLEAN bPingLog;

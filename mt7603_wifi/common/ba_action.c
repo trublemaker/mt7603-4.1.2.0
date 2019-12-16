@@ -10,9 +10,9 @@
 #define ORI_BA_SESSION_TIMEOUT	(2000)	/* ms */
 #define REC_BA_SESSION_IDLE_TIMEOUT	(1000)	/* ms */
 
-#define REORDERING_PACKET_TIMEOUT		((100 * OS_HZ)/1000)	/* system ticks -- 100 ms*/
-#define MULTI_CLIENT_REORDERING_PACKET_TIMEOUT		((200 * OS_HZ)/1000)	/* system ticks -- 200 ms*/
-#define MAX_REORDERING_PACKET_TIMEOUT	((3000 * OS_HZ)/1000)	/* system ticks -- 100 ms*/
+#define REORDERING_PACKET_TIMEOUT		((80 * OS_HZ)/1000)	/* system ticks -- 100 ms*/
+#define MULTI_CLIENT_REORDERING_PACKET_TIMEOUT		((160 * OS_HZ)/1000)	/* system ticks -- 200 ms*/
+#define MAX_REORDERING_PACKET_TIMEOUT	((2000 * OS_HZ)/1000)	/* system ticks -- 100 ms*/
 
 #if defined(MAX_CONTINUOUS_TX_CNT) || defined(NEW_IXIA_METHOD)
 #undef MULTI_CLIENT_REORDERING_PACKET_TIMEOUT
@@ -454,7 +454,7 @@ void ba_flush_reordering_timeout_mpdus(
     			pBAEntry->LastIndSeq = Sequence;
     		}
 
-		DBGPRINT(RT_DEBUG_OFF, ("%x, flush one!\n", pBAEntry->LastIndSeq));
+		DBGPRINT(RT_DEBUG_OFF, ("7603e %3x, flush one!\n", pBAEntry->LastIndSeq));
 
 	}
 }

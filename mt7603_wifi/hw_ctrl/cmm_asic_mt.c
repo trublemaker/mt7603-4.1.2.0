@@ -1377,8 +1377,8 @@ VOID APCheckBcnQHandler(RTMP_ADAPTER *pAd, INT apidx, BOOLEAN *is_pretbtt_int)
 
 	//check filter resilt
 	RTMP_IO_READ32(pAd, 0x21c0c, &temp);
-	DBGPRINT(RT_DEBUG_ERROR, ("flush result = %x\n", temp));
-	DBGPRINT(RT_DEBUG_ERROR, ("check pse fid Q7:"));
+	DBGPRINT(RT_DEBUG_INFO, ("flush result = %x\n", temp));
+	DBGPRINT(RT_DEBUG_INFO, ("check pse fid Q7:"));
 	set_get_fid(pAd, "7");
 
 	val = 0;

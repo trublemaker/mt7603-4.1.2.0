@@ -318,8 +318,10 @@ spec_objs += $(RT_WIFI_DIR)/common/ft.o\
                     $(RT_WIFI_DIR)/ap/ap_ftkd.o
 endif
 
+CONFIG_MT7603E_DOT11K_RRM_SUPPORT=y
 # RR
 ifeq ($(CONFIG_MT7603E_DOT11K_RRM_SUPPORT),y)
+	
 	EXTRA_CFLAGS += -DDOT11K_RRM_SUPPORT -DAP_SCAN_SUPPORT -DSCAN_SUPPORT -DAPPLE_11K_IOT
 spec_objs += $(RT_WIFI_DIR)/common/rrm_tlv.o\
                     $(RT_WIFI_DIR)/common/rrm_sanity.o\
@@ -513,6 +515,7 @@ ifeq ($(CONFIG_MIXMODE_SUPPORT),y)
 
     ap_objs += $(RT_WIFI_DIR)/ap/ap_mix_mode.o
 endif
+
 ifeq ($(CONFIG_MT7603E_APCLI_SUPPORT),y)
     EXTRA_CFLAGS += -DAPCLI_SUPPORT -DMAT_SUPPORT -DTRAFFIC_BASED_TXOP -DAPCLI_AUTO_CONNECT_SUPPORT
     ifeq ($(CONFIG_RALINK_MT7620),y)

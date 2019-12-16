@@ -1446,7 +1446,7 @@ VOID ap_cmm_peer_assoc_req_action(
 #endif /* DOT1X_SUPPORT */
 #ifdef DOT11R_FT_SUPPORT
 	PFT_CFG pFtCfg = NULL;
-	FT_INFO FtInfoBuf = {0};
+	FT_INFO FtInfoBuf ;//= {};
 #endif /* DOT11R_FT_SUPPORT */
 #ifdef WSC_AP_SUPPORT
 	WSC_CTRL *wsc_ctrl;
