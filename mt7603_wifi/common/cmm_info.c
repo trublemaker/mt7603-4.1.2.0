@@ -2770,7 +2770,7 @@ RTMP_STRING *GetAuthMode(CHAR auth)
     ==========================================================================
 */
 #ifndef WH_EZ_SETUP
-#define	LINE_LEN	(4+65+20+23+9+7+7+3)	/* Channel+SSID(2*32+1)+Bssid+Security+Signal+WiressMode+ExtCh+NetworkType*/
+#define	LINE_LEN	(4+33+20+23+9+7+7+3)	/* Channel+SSID(2*32+1)+Bssid+Security+Signal+WiressMode+ExtCh+NetworkType*/
 #endif
 
 #ifdef AIRPLAY_SUPPORT
@@ -3036,7 +3036,6 @@ VOID RTMPIoctlGetSiteSurvey(
 	UCHAR TargetSsidLen = 0;
 #endif /* AIRPLAY_SUPPORT */	
 
-
 #ifdef WSC_INCLUDED
 	max_len += WPS_LINE_LEN;
 #endif /* WSC_INCLUDED */
@@ -3147,9 +3146,11 @@ VOID RTMPIoctlGetSiteSurvey(
 #ifdef WSC_INCLUDED
 	sprintf(msg+strlen(msg)-1,"%-4s%-5s\n", " WPS", " DPID");
 #endif /* WSC_INCLUDED */
+
 #ifdef DOT11K_RRM_SUPPORT
 	sprintf(msg+strlen(msg)-1, "%-10s\n", " BcnRept");
 #endif /* DOT11K_RRM_SUPPORT */
+
 #ifdef MWDS
 	sprintf(msg+strlen(msg)-1,"%-8s\n", " MWDSCap");
 #endif /* MWDS */
@@ -3179,10 +3180,11 @@ VOID RTMPIoctlGetSiteSurvey(
 			DBGPRINT(RT_DEBUG_TRACE,("===[%s] *** last_msg_len = %d ***\n", __FUNCTION__, last_msg_len));
 		}
 		
-		DBGPRINT(RT_DEBUG_TRACE,("===[%s] i:%d last_msg_len = %d strlen(msg) = %d \n", __FUNCTION__, i, last_msg_len, strlen(msg)));
-		if((strlen(msg)+max_len ) >= BufLen)
+		DBGPRINT(RT_DEBUG_TRACE,("===[%s] i:%2d  last_msg_len = %d strlen(msg) = %d \n", __FUNCTION__, i, last_msg_len, strlen(msg)));
+		if((strlen(msg)+max_len ) >= BufLen){
+			DBGPRINT(RT_DEBUG_TRACE,("===[%s]  strlen(msg)+max_len = %d BufLen  = %d \n", __FUNCTION__,  strlen(msg)+max_len,BufLen  ));			
 			break;
-		
+			}
 #ifdef AIRPLAY_SUPPORT
 				if (TargetSsidLen > 0) 
 				{
