@@ -711,8 +711,7 @@ void hex_dump(char *str, UCHAR *pSrcBufVA, UINT SrcBufLen)
 	unsigned char *pt;
 	int x;
 
-	if (RTDebugLevel < RT_DEBUG_TRACE)
-		return;
+	//if (RTDebugLevel < RT_DEBUG_TRACE)	return;
 
 	pt = pSrcBufVA;
 	printk("%s: %p, len = %d\n", str, pSrcBufVA, SrcBufLen);

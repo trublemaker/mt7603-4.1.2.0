@@ -2282,7 +2282,8 @@ void WNM_ReadParametersFromFile(
 					macptr = rstrtok(NULL, ";"), loop++) {
 			LONG Enable;
 
-			kstrtol(macptr, 10, &Enable);
+			int retval = kstrtol(macptr, 10, &Enable);
+			retval ++;
 			pAd->ApCfg.MBSSID[loop].WNMCtrl.WNMBTMEnable =
 				(Enable > 0) ? TRUE : FALSE;
 			DBGPRINT(RT_DEBUG_TRACE, ("%s::(bDot11vWNMEnable[%d]=%d\n",
@@ -2880,6 +2881,8 @@ int check_btm_custom_params(
 error:
 	return NDIS_STATUS_FAILURE;
 }
+
+#include <dot11k_rrm.h> //DOT11K_RRM_H
 
 int compose_btm_req_ie(
 	IN PRTMP_ADAPTER pAd,

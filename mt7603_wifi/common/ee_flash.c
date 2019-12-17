@@ -30,16 +30,9 @@
 
 #include	"rt_config.h"
 
-
-
 #ifdef  MT7603
-#define EEPROM_FILE_NAME                     "MT7603E1E2_EEPROM_layout_2014011_ePAeLNA.bin"
+#define EEPROM_FILE_NAME "MT7603E1E2_EEPROM_layout_2014011_ePAeLNA.bin"
 #endif /* RT3090 */
-
-
-
-
-
 
 #define EEPROM_DFT_FILE_DIR	"/etc_ro/wlan/"
 #ifdef EEPROM_1ST_FILE_DIR
@@ -47,7 +40,6 @@
 #define EEPROM_1ST_FILE_DIR	"/etc_ro/Wireless/RT2860/"
 #endif
 #define EEPROM_2ND_FILE_DIR	"/etc_ro/Wireless/iNIC/"
-
 #if defined(RTMP_RBUS_SUPPORT) || defined(RTMP_FLASH_SUPPORT)
 /* The flag "CONFIG_RALINK_FLASH_API" is used for APSoC Linux SDK */
 #ifdef CONFIG_PROPRIETARY_DRIVER
@@ -83,11 +75,10 @@ int32_t FlashWrite(
 	uint16_t *source,
 	uint16_t *destination,
 	uint32_t numBytes);
-#define flash_read(_ad, _ptr, _offset, _len) FlashRead((uint16_t *)_ptr, (uint16_t *)_offset, (uint32_t)_len)
-#define flash_write(_ptr, _offset, _len) FlashWrite(_ptr, _offset, _len)
+#define flash_read(_ad, _ptr, _offset, _len) FlashRead((uint32_t *)_ptr, (uint32_t *)_offset, (uint32_t)_len)
+#define flash_write(_ptr, _offset, _len) FlashWrite((uint16_t*)_ptr, (uint16_t*)_offset, (uint32_t)_len)
 
 #else /* CONFIG_RALINK_FLASH_API */
-
 #ifdef RA_MTD_RW_BY_NUM
 #if defined(CONFIG_RT2880_FLASH_32M)
 #define MTD_NUM_FACTORY 5
@@ -127,18 +118,12 @@ void RtmpFlashWrite(
 	flash_write(p, a, b);
 }
 
-
-
 #endif /* defined(RTMP_RBUS_SUPPORT) || defined(RTMP_FLASH_SUPPORT) */
 
 
 static NDIS_STATUS rtmp_ee_flash_init(PRTMP_ADAPTER pAd, PUCHAR start);
 
 static USHORT EE_FLASH_ID_LIST[]={
-
-
-
-
 
 #ifdef MT7603
     0x7603,
@@ -407,13 +392,17 @@ static BOOLEAN  validFlashEepromID(RTMP_ADAPTER *pAd)
 #ifdef MT7603
 			if (IS_MT7603(pAd))
 			{
-				if (eeFlashId != 0x7603)
+				if (eeFlashId != 0x7603){
+					DBGPRINT(RT_DEBUG_OFF, ("validFlashEepromID() FALSE1 eeFlashId:%X 0x7603\n",eeFlashId));
 					return FALSE;
+				}
 			}
 #endif /* MT7603 */
+			DBGPRINT(RT_DEBUG_OFF, ("validFlashEepromID() TRUE eeFlashId:%X 0x7603\n",eeFlashId));
 			return TRUE;
 		}
 	}
+	DBGPRINT(RT_DEBUG_OFF, ("validFlashEepromID() FALSE2 eeFlashId:%X 0x7603\n",eeFlashId));
 	return FALSE;
 }
 

@@ -91,8 +91,6 @@ INT wdev_tx_pkts(NDIS_HANDLE dev_hnd, PPNDIS_PACKET pkt_list, UINT pkt_cnt, stru
 		}
 #endif /* CONFIG_FPGA_MODE */
 
-
-
 		if (((wdev->allow_data_tx == TRUE) || (pAd->BSendBMToAir)
 #ifdef CONFIG_FPGA_MODE
 			|| (force_tx == TRUE)
@@ -116,7 +114,7 @@ INT wdev_tx_pkts(NDIS_HANDLE dev_hnd, PPNDIS_PACKET pkt_list, UINT pkt_cnt, stru
 		}
 #endif /* CONFIG_FPGA_MODE */
 
-		if (allowToSend == TRUE)
+		if ( allowToSend )
 		{
 			RTMP_SET_PACKET_WCID(pPacket, wcid);
 			RTMP_SET_PACKET_WDEV(pPacket, wdev->wdev_idx);
@@ -145,12 +143,13 @@ INT wdev_tx_pkts(NDIS_HANDLE dev_hnd, PPNDIS_PACKET pkt_list, UINT pkt_cnt, stru
 #ifdef CONFIG_RAETH
 #if !defined(CONFIG_RA_NAT_NONE)
 			if(ra_sw_nat_hook_tx!= NULL)
-			{
-				unsigned long flags;
+			{ 
+				//unsigned long flags=0;
 		
-				RTMP_INT_LOCK(&pAd->page_lock, flags);
-				ra_sw_nat_hook_tx(pPacket);
-				RTMP_INT_UNLOCK(&pAd->page_lock, flags);
+				//DBGPRINT(RT_DEBUG_ERROR, ("--%s(): ra_sw_nat_hook_tx \n", __FUNCTION__));
+				//RTMP_INT_LOCK(&pAd->page_lock, flags);
+				//ra_sw_nat_hook_tx(pPacket);
+				//RTMP_INT_UNLOCK(&pAd->page_lock, flags);
 			}
 #endif
 #endif /* CONFIG_RAETH */

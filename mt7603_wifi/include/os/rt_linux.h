@@ -155,19 +155,19 @@ typedef struct usb_ctrlrequest devctrlrequest;
 
 #if defined(CONFIG_FIRST_IF_MT7603E) || defined(CONFIG_SECOND_IF_MT7603E)
 //for SDK's PATH
-#define AP_PROFILE_PATH			"/etc/Wireless/RT2860/RT2860.dat"
+#define AP_PROFILE_PATH			"/etc/Wireless/RT2860/RT2860AP.dat"
 #else /* CONFIG_FIRST_IF_MT7603E */
 //for PC's PATH
-#define AP_PROFILE_PATH			"/etc/Wireless/RT2860AP/RT2860AP.dat"
+#define AP_PROFILE_PATH			"/etc/Wireless/RT2860/RT2860AP.dat"
 #endif /* !CONFIG_FIRST_IF_MT7603E */
-#define AP_RTMP_FIRMWARE_FILE_NAME "/etc/Wireless/RT2860AP/RT2860AP.bin"
+#define AP_RTMP_FIRMWARE_FILE_NAME "/etc/Wireless/RT2860/RT2860AP.bin"
 
 #endif
 
 
-#define AP_DRIVER_VERSION			"4.0.1.0rev2.P3"
+#define AP_DRIVER_VERSION			"4.1.2.0_rev2.P3_mao"
 #ifdef MULTIPLE_CARD_SUPPORT
-#define CARD_INFO_PATH			"/etc/Wireless/RT2860AP/RT2860APCard.dat"
+#define CARD_INFO_PATH			"/etc/Wireless/RT2860/RT2860APCard.dat"
 #endif /* MULTIPLE_CARD_SUPPORT */
 #ifdef WAPP_SUPPORT
 #define WAPP_SUPPORT_VERSION		"2.0"

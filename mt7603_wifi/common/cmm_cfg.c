@@ -1395,7 +1395,7 @@ INT Set_SiteSurvey_Proc(RTMP_ADAPTER *pAd, RTMP_STRING *arg)
 	//check if the interface is down
 	if (!RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_INTERRUPT_IN_USE))
 	{
-		DBGPRINT(RT_DEBUG_TRACE, ("INFO::Network is down!\n"));
+		DBGPRINT(RT_DEBUG_OFF, ("INFO::Network is down!\n"));
 		return -ENETDOWN;   
 	}
 

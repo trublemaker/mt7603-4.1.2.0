@@ -7,7 +7,7 @@
 
 #ifdef RTMP_FLASH_SUPPORT
 #ifdef RTMP_MAC_PCI
-#define EEPROM_DEFAULT_7603_FILE_PATH     "/etc_ro/wlan/MT7603E.bin"
+#define EEPROM_DEFAULT_7603_FILE_PATH     "/etc_ro/Wireless/MT7603E_EEPROM.bin"
 #endif /* RTMP_MAC_PCI */
 #endif /* RTMP_FLASH_SUPPORT */
 
