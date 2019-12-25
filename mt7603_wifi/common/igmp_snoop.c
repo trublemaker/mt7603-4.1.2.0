@@ -224,7 +224,7 @@ BOOLEAN MulticastFilterTableInsertEntry(
 		{
 			if (MAC_ADDR_EQUAL(pMemberAddr, pMemberEntry->Addr))
 			{
-				DBGPRINT(RT_DEBUG_ERROR, ("%s: already in Members list.\n", __FUNCTION__));
+				DBGPRINT(RT_DEBUG_WARN, ("mt76x3 %s: already in Members list.\n", __FUNCTION__));
 				return FALSE;
 			}
 
