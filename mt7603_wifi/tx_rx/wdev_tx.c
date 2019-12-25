@@ -144,6 +144,7 @@ INT wdev_tx_pkts(NDIS_HANDLE dev_hnd, PPNDIS_PACKET pkt_list, UINT pkt_cnt, stru
 #if !defined(CONFIG_RA_NAT_NONE)
 			if(ra_sw_nat_hook_tx!= NULL)
 			{ 
+				ra_sw_nat_hook_tx(pPacket,0);
 				//unsigned long flags=0;
 		
 				//DBGPRINT(RT_DEBUG_ERROR, ("--%s(): ra_sw_nat_hook_tx \n", __FUNCTION__));
