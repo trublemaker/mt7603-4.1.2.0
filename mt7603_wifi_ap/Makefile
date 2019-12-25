@@ -1,4 +1,3 @@
-
 ifeq ($(CONFIG_SUPPORT_OPENWRT),y)
 ccflags-y = -I$(src)/../mt7603_wifi/include \
 		-I$(src)/../mt7603_wifi/ate/include
@@ -187,7 +186,7 @@ ifeq ($(CONFIG_MT7603E_WSC_INCLUDED),y)
         EXTRA_CFLAGS += -DSDK_USER_LIGHTY
     endif
 
-    ifneq ($(CONFIG_MT7603E_RLT_AP_SUPPORT),)
+    ifneq ($(CONFIG_MT76X3_AP),)
         EXTRA_CFLAGS += -DWSC_AP_SUPPORT
     endif
 
@@ -946,7 +945,7 @@ endif
 #
 # Root 
 #
-obj-$(CONFIG_MT7603E_RLT_AP_SUPPORT) += $(DRV_NAME).o
+obj-$(CONFIG_MT76X3_AP) += $(DRV_NAME).o
 
 $(DRV_NAME)-objs += $(ap_objs) $(cmm_objs) $(asic_objs) $(chip_objs) $(rate_objs) $(inf_objs)\
                     $(spec_objs) $(func_objs) $(os_objs)
