@@ -1,6 +1,6 @@
 ifeq ($(CONFIG_SUPPORT_OPENWRT),y)
-ccflags-y = -I$(src)/../mt7603_wifi/include \
-		-I$(src)/../mt7603_wifi/ate/include
+ccflags-y = -I$(src)/../mt76x3/include \
+		-I$(src)/../mt76x3/ate/include
 DRV_NAME = mt76x3_ap
 RT_WIFI_DIR = ../mt7603_wifi
 
@@ -16,6 +16,7 @@ DRV_NAME = mt76x3_ap
 RT_WIFI_DIR = ../mt7603_wifi
 endif
 
+$(info Build MT76X3E: $(DRV_NAME) )
 
 ########################################################
 # Common files
@@ -143,12 +144,13 @@ endif
 
 ifeq ($(MTDEBUG),y)
 	EXTRA_CFLAGS += -DDBG -DUAPSD_DEBUG
-	EXTRA_CFLAGS += -DTXRXCR_DEBUG_SUPPORT
+	#EXTRA_CFLAGS += -DTXRXCR_DEBUG_SUPPORT
 	#EXTRA_CFLAGS += -DDBG_DIAGNOSE -DDBG_RX_MCS -DDBG_TX_MCS
 	EXTRA_CFLAGS += -DSYSTEM_LOG_SUPPORT
 	#EXTRA_CFLAGS += -DINT_STATISTIC
 	$(RT_DRV_NAME)-objs += $(RT_DRV_PATH)/common/sys_log.o
 endif
+
 ########################################################
 # Spec feature related files
 ########################################################
@@ -829,6 +831,9 @@ EXTRA_CFLAGS += -DUSE_BMC
 else
 ccflags-y += -DRTMP_WLAN_HOOK_SUPPORT -DUSE_BMC
 endif
+
+##***************************************************************
+
 EXTRA_CFLAGS += -DMT_PS -DDMA_RESET_SUPPORT -DTXRXCR_DEBUG_SUPPORT
 EXTRA_CFLAGS += -DMT7603_E1
 EXTRA_CFLAGS += -DMT7603_E2
