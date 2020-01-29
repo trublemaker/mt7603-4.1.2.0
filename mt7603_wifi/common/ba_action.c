@@ -454,7 +454,7 @@ void ba_flush_reordering_timeout_mpdus(
     			pBAEntry->LastIndSeq = Sequence;
     		}
 
-		DBGPRINT(RT_DEBUG_OFF, ("7603e %3x, flush one!\n", pBAEntry->LastIndSeq));
+		DBGPRINT(RT_DEBUG_INFO, ("7603e %3x, flush one!\n", pBAEntry->LastIndSeq));
 
 	}
 }
@@ -1893,6 +1893,14 @@ VOID Indicate_AMPDU_Packet(RTMP_ADAPTER *pAd, RX_BLK *pRxBlk, UCHAR wdev_idx)
 	{
 		max_pkt_len = MAX_RX_PKT_LEN;
 		data_len = pRxBlk->DataSize;
+	}
+
+	if (!data_len){
+		/* release packet*/
+		/* avoid processing with null paiload packets - QCA61X4A bug */
+		DBGPRINT(RT_DEBUG_OFF, ("AMPDU DataSize = %d, RELEASE_NDIS_PACKET.\n", data_len));
+		RELEASE_NDIS_PACKET(pAd, pRxBlk->pRxPacket, NDIS_STATUS_FAILURE);
+		return;
 	}
 
 	if (!RX_BLK_TEST_FLAG(pRxBlk, fRX_AMSDU) &&  (data_len > max_pkt_len))

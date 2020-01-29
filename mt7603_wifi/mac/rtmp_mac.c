@@ -278,7 +278,7 @@ INT rtmp_mac_fifo_stat_update(RTMP_ADAPTER *pAd)
 			{			
 				DBGPRINT(RT_DEBUG_TRACE, ("#"));
 #ifdef DOT11_N_SUPPORT
-				pEntry->NoBADataCountDown = 64;
+				pEntry->NoBADataCountDown = 10;
 #endif /* DOT11_N_SUPPORT */
 
 

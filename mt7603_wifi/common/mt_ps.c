@@ -326,9 +326,9 @@ VOID MtHandleRxPsPoll(RTMP_ADAPTER *pAd, UCHAR *pAddr, USHORT wcid, BOOLEAN isAc
 		{
 			IsDequeu = TRUE;
 			DequeuAC = NUM_OF_TX_RING;
-			if (tr_entry->enqCount > MAX_TX_PROCESS)
+			if (tr_entry->enqCount >  8 /* MAX_TX_PROCESS */)
 			{
-				DequeuCOUNT = MAX_TX_PROCESS;
+				DequeuCOUNT =  8 /* MAX_TX_PROCESS */;
 				rtmp_ps_enq(pAd,tr_entry);
 			}
 			else

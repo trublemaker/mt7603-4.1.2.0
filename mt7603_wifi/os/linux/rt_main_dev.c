@@ -49,6 +49,8 @@ MODULE_LICENSE("GPL");
 #endif /* RTMP_MAC_PCI */
 // TODO: End---
 
+MODULE_AUTHOR("Mediatek");
+MODULE_DESCRIPTION("MT7603E WiFi driver");
 
 
 /*---------------------------------------------------------------------*/

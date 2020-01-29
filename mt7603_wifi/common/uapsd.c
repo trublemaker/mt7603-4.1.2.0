@@ -2312,14 +2312,14 @@ VOID UAPSD_TriggerFrameHandle(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, UCHAR 
 	{
 		/* if no data needs to tx, respond with QosNull for the trigger frame */
 		pEntry->pUAPSDEOSPFrame = NULL;
-		pEntry->UAPSDTxNum = TxPktNum;
+		pEntry->UAPSDTxNum = 0;
 #ifdef MT_PS
 		tr_entry->bEospNullSnd = FALSE;
 #endif /* MT_PS */
 
 		if (TxPktNum == 0)
 		{
-			pEntry->UAPSDTxNum = 0;
+			//pEntry->UAPSDTxNum = 0;
 #ifdef MT_PS
 			if ((pAd->chipCap.hif_type == HIF_MT) &&
 				(tr_entry->ps_state != APPS_RETRIEVE_IDLE) &&
