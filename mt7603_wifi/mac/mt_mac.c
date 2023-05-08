@@ -1709,7 +1709,7 @@ VOID dump_wtbl_1_info(RTMP_ADAPTER *pAd, struct wtbl_1_struc *tb)
 }
 
 
-static UCHAR ba_range[] = {4, 5, 8, 10, 16, 20, 21, 42};
+static UCHAR ba_range[] = {4, 5, 8, 10, 16, 20, 21, 45};
 static UCHAR *bw_str[] = {"20", "40", "80", "160"};
 VOID dump_wtbl_2_info(RTMP_ADAPTER *pAd, struct wtbl_2_struc *tb)
 {

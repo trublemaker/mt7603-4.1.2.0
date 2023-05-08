@@ -996,7 +996,13 @@ NDIS_STATUS MiniportMMRequest(RTMP_ADAPTER *pAd, UCHAR QueIdx, UCHAR *pData, UIN
 		{
 			/* free Tx(QueIdx) resources*/
 			//DBGPRINT(RT_DEBUG_OFF, ("::::::::RTMPFreeTXDUponTxDmaDone (error:: RTMPFreeTXDUponTxDmaDone)\n"));
-			RTMPFreeTXDUponTxDmaDone(pAd, QueIdx);
+			//RTMPFreeTXDUponTxDmaDone(pAd, QueIdx);
+			FreeNum = GET_TXRING_FREENO(pAd, QueIdx);
+			if (FreeNum <= 5)
+			{
+				/* free Tx(QueIdx) resources*/
+				RTMPFreeTXDUponTxDmaDone(pAd, QueIdx);
+			}
 			FreeNum = GET_TXRING_FREENO(pAd, QueIdx);
 		}
 		else

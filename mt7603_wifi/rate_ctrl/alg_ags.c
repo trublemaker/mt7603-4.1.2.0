@@ -207,6 +207,7 @@ INT Show_AGS_Proc(
 
 
 #ifdef CONFIG_AP_SUPPORT
+pppp;
 /*
 	The dynamic Tx rate switching for AGS in VHT(Adaptive Group Switching)
 
@@ -409,7 +410,7 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 					pEntry->TxQuality[pCurrTxRate->upMcs1]));
 			}
 		}
-		else if ((pTable == AGS2x2HTRateTable)
+		else if ((pTable == AGS2x2HTRateTable) pppp;
 #ifdef DOT11_VHT_AC
 				|| (pTable == Ags2x2VhtRateTable)
 #endif /* DOT11_VHT_AC*/
@@ -524,7 +525,7 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 
 	DownRateIdx = pCurrTxRate->downMcs;
 
-	DBGPRINT_RAW(RT_DEBUG_INFO | DBG_FUNC_RA,
+	DBGPRINT_RAW(RT_DEBUG_OFF | DBG_FUNC_RA,
 				("ags> UpRateIdx = %d, DownRateIdx = %d\n",
 				UpRateIdx, DownRateIdx));
 
@@ -545,7 +546,7 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 	pEntry->LastTimeTxRateChangeAction = pEntry->LastSecTxRateChangeAction;
 
 
-	DBGPRINT(RT_DEBUG_INFO | DBG_FUNC_RA, ("%s: AGS: Rssi = %d, TxSuccess = %lu, TxRetransmit = %lu, TxFailCount = %lu, TxErrorRatio = %lu\n", 
+	DBGPRINT(RT_DEBUG_OFF | DBG_FUNC_RA, ("%s: AGS: Rssi = %d, TxSuccess = %lu, TxRetransmit = %lu, TxFailCount = %lu, TxErrorRatio = %lu\n", 
 		__FUNCTION__, 
 		AGSStatisticsInfo.RSSI, 
 		AGSStatisticsInfo.TxSuccess, 
@@ -553,7 +554,7 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 		AGSStatisticsInfo.TxFailCount, 
 		AGSStatisticsInfo.TxErrorRatio));
 
-	DBGPRINT_RAW(RT_DEBUG_INFO | DBG_FUNC_RA, 
+	DBGPRINT_RAW(RT_DEBUG_OFF | DBG_FUNC_RA, 
 		("%s: AGS: Before - CurrTxRateIdx = %d, MCS = %d, STBC = %d, ShortGI = %d, Mode = %d, "
 		"TrainUp = %d, TrainDown = %d, NextUp = %d, NextDown = %d, "
 		"CurrMCS = %d, pEntry->AGSCtrl.MCSGroup = %d, PER = %lu%%, Retry = %lu, NoRetry = %lu\n", 
@@ -645,7 +646,7 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 					("ags> Group3 RSSI = %d, TxRateIdx = %d\n",
 					AGSStatisticsInfo.RSSI, TxRateIdx));
 		}
-		else if ((pTable == AGS2x2HTRateTable)
+		else if ((pTable == AGS2x2HTRateTable)qqqq;
 #ifdef DOT11_VHT_AC
 				|| (pTable == Ags2x2VhtRateTable)
 #endif /* DOT11_VHT_AC */
@@ -656,7 +657,7 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 				RssiOffset = AgsRssiOffsetTable[1][pAd->CommonCfg.BBPCurrentBW];
 #endif /* DOT11_VHT_AC */
 
-			DBGPRINT_RAW(RT_DEBUG_TRACE, ("%s: AGS: 2*2, RssiOffsetForAgs=%d\n", __FUNCTION__, RssiOffset));
+			DBGPRINT_RAW(RT_DEBUG_OFF, ("%s: AGS: 2*2, RssiOffsetForAgs=%d\n", __FUNCTION__, RssiOffset));
 			
 			if (MCS[15] && (AGSStatisticsInfo.RSSI > (-69 + RssiOffset)))
 				TxRateIdx = MCS[15];
@@ -683,7 +684,7 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 			if (pTable == Ags1x1VhtRateTable)
 				RssiOffset = AgsRssiOffsetTable[0][pAd->CommonCfg.BBPCurrentBW];
 #endif /* DOT11_VHT_AC */
-			DBGPRINT_RAW(RT_DEBUG_INFO | DBG_FUNC_RA, ("%s: AGS: 1*1, RssiOffset=%d\n", __FUNCTION__, RssiOffset));
+			DBGPRINT_RAW(RT_DEBUG_OFF | DBG_FUNC_RA, ("%s: AGS: 1*1, RssiOffset=%d\n", __FUNCTION__, RssiOffset));
 			
 			/* 1x1 peer device (Adhoc, DLS or AP) */
 			if (MCS[7] && (AGSStatisticsInfo.RSSI > (-71 + RssiOffset)))
@@ -729,18 +730,18 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 		
 		RESET_ONE_SEC_TX_CNT(pEntry);
 		
-		DBGPRINT_RAW(RT_DEBUG_INFO | DBG_FUNC_RA, ("%s: AGS: The MCS selection base on RSSI\n", __FUNCTION__));
+		DBGPRINT_RAW(RT_DEBUG_OFF | DBG_FUNC_RA, ("%s: AGS: The MCS selection base on RSSI\n", __FUNCTION__));
 
 		return;
 	}
 
-	DBGPRINT_RAW(RT_DEBUG_INFO | DBG_FUNC_RA, ("%s: AGS: TrainUp:%d, TrainDown:%d\n", __FUNCTION__, TrainUp, TrainDown));
+	DBGPRINT_RAW(RT_DEBUG_OFF | DBG_FUNC_RA, ("%s: AGS: TrainUp:%d, TrainDown:%d\n", __FUNCTION__, TrainUp, TrainDown));
 
 	do
 	{
 		BOOLEAN	bTrainUpDown = FALSE;
 		
-		DBGPRINT_RAW(RT_DEBUG_INFO | DBG_FUNC_RA,
+		DBGPRINT_RAW(RT_DEBUG_OFF | DBG_FUNC_RA,
 					("%s: AGS: TxQuality[CurrRateIdx(%d)] = %d, UpPenalty:%d\n",
 					__FUNCTION__, CurrRateIdx,
 					pEntry->TxQuality[CurrRateIdx], pEntry->TxRateUpPenalty));
@@ -748,7 +749,7 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 		if (AGSStatisticsInfo.TxErrorRatio >= TrainDown) /* Poor quality */
 		{
 			/* error ratio too high, do rate down */
-			DBGPRINT_RAW(RT_DEBUG_INFO | DBG_FUNC_RA,
+			DBGPRINT_RAW(RT_DEBUG_OFF | DBG_FUNC_RA,
 						("%s: AGS: (DOWN) TxErrorRatio >= TrainDown\n",__FUNCTION__));
 			bTrainUpDown = TRUE;
 			pEntry->TxQuality[CurrRateIdx] = AGS_TX_QUALITY_WORST_BOUND;
@@ -1077,11 +1078,11 @@ VOID ApQuickResponeForRateUpExecAGS(
 				RTMPZeroMemory(pEntry->TxQuality, sizeof(USHORT) * (MAX_TX_RATE_INDEX+1));
 
 				if (pEntry->AGSCtrl.MCSGroup == 0)
-				{
+				{fffff;
 					if (pTable == AGS3x3HTRateTable)
 						pEntry->AGSCtrl.MCSGroup = 3;
 					else if ((pTable == AGS2x2HTRateTable) || 
-					            (pTable == Ags2x2VhtRateTable))
+					            (pTable == Ags2x2VhtRateTable))iiii;
 						pEntry->AGSCtrl.MCSGroup = 2;
 					else
 						pEntry->AGSCtrl.MCSGroup = 1;

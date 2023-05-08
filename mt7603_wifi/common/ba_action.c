@@ -680,7 +680,7 @@ BOOLEAN BARecSessionAdd(
 				/* initial LastIndSeq = SSN - 1*/
 		pBAEntry->LastIndSeq = (pFrame->BaStartSeq.field.StartSeq - 1) & MAXSEQ;
 		
-		DBGPRINT(RT_DEBUG_OFF, ("Start Seq = %08x\n",  pFrame->BaStartSeq.field.StartSeq));
+		DBGPRINT(RT_DEBUG_TRACE, ("Start Seq = %08x\n",  pFrame->BaStartSeq.field.StartSeq));
 
 		if (pEntry->RXBAbitmap & (1<<TID))
 			RTMPCancelTimer(&pBAEntry->RECBATimer, &Cancelled);
@@ -1171,7 +1171,7 @@ VOID PeerAddBAReqAction(RTMP_ADAPTER *pAd, MLME_QUEUE_ELEM *Elem)
 	{
 		if ((pAd->CommonCfg.bBADecline == FALSE) && IS_HT_STA(pMacEntry))
 		{
-			DBGPRINT(RT_DEBUG_OFF, ("Rcv Wcid(%d) AddBAReq\n", Elem->Wcid));
+			DBGPRINT(RT_DEBUG_TRACE, ("Rcv Wcid(%d) AddBAReq\n", Elem->Wcid));
 			if (BARecSessionAdd(pAd, &pAd->MacTab.Content[Elem->Wcid], pAddreqFrame))
 			{
 #ifdef PEER_DELBA_TX_ADAPT

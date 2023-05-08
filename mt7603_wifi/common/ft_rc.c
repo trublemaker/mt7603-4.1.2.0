@@ -336,7 +336,7 @@ extern BOOLEAN BARecSessionAdd(
 		AddreqFrame.TimeOutValue = le2cpu16(pRicBaInfo->TimeOutValue);
 		AddreqFrame.BaStartSeq.word = le2cpu16(pRicBaInfo->BaStartSeq);
 
-		DBGPRINT(RT_DEBUG_OFF, ("Rcv Wcid(%d) AddBAReq\n", pMacEntry->Aid));
+		DBGPRINT(RT_DEBUG_TRACE, ("Rcv Wcid(%d) AddBAReq\n", pMacEntry->Aid));
 		if (BARecSessionAdd(pAd, pMacEntry, &AddreqFrame))
 			Status = 0;
 		else

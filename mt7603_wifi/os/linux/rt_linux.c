@@ -92,8 +92,8 @@ static inline void netdev_priv_set(struct net_device *dev, void *priv)
 }
 
 
-ULONG RTDebugLevel = RT_DEBUG_ERROR; //RT_DEBUG_ERROR;
-ULONG RTDebugFunc = 0;  //DBG_FUNC_PS;DBG_FUNC_UAPSD;
+ULONG RTDebugLevel = RT_DEBUG_OFF; //RT_DEBUG_ERROR;
+ULONG RTDebugFunc = 0;  //DBG_FUNC_PS;DBG_FUNC_UAPSD;DBG_FUNC_RA
 
 #ifdef OS_ABL_FUNC_SUPPORT
 ULONG RTPktOffsetData = 0, RTPktOffsetLen = 0, RTPktOffsetCB = 0;
@@ -711,7 +711,7 @@ void hex_dump(char *str, UCHAR *pSrcBufVA, UINT SrcBufLen)
 	unsigned char *pt;
 	int x;
 
-	//if (RTDebugLevel < RT_DEBUG_TRACE)	return;
+	if (RTDebugLevel < RT_DEBUG_TRACE)	return;
 
 	pt = pSrcBufVA;
 	printk("%s: %p, len = %d\n", str, pSrcBufVA, SrcBufLen);

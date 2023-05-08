@@ -631,7 +631,8 @@ VOID RTMPSetIndividualHT(RTMP_ADAPTER *pAd, UCHAR apidx)
 				mode = DesiredMcs / 8;
 				if (mode < 2)
 					pDesired_ht_phy->MCSSet[mode] = (1 << (DesiredMcs - mode * 8));
-			}			
+			}	
+			printk("pDesired_ht_phy->MCSSet[1] = %d",pDesired_ht_phy->MCSSet[1]);
 			break;
 
 		case 3:

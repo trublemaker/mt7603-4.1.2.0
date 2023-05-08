@@ -494,6 +494,12 @@ if (1) {
 	}
 	else
 #endif /* HDR_TRANS_SUPPORT */
+	if (!data_len) {
+		/* release packet*/
+		/* avoid processing with null paiload packets - QCA61X4A bug */
+		RELEASE_NDIS_PACKET(pAd, pRxBlk->pRxPacket, NDIS_STATUS_FAILURE);
+		return;
+	}
 
 	RTMP_802_11_REMOVE_LLC_AND_CONVERT_TO_802_3(pRxBlk, Header802_3);
 	//hex_dump("802_3_hdr", (UCHAR *)Header802_3, LENGTH_802_3);
@@ -2268,6 +2274,9 @@ VOID dev_rx_data_frm(RTMP_ADAPTER *pAd, RX_BLK *pRxBlk)
 	UCHAR *pData;
 	struct wifi_dev *wdev;
 	BOOLEAN drop_err = TRUE;
+
+	int MCS,BW;
+	
 #if defined(SOFT_ENCRYPT) || defined(ADHOC_WPA2PSK_SUPPORT)
 	NDIS_STATUS status;
 #endif /* defined(SOFT_ENCRYPT) || defined(ADHOC_WPA2PSK_SUPPORT) */
@@ -2656,7 +2665,12 @@ VOID dev_rx_data_frm(RTMP_ADAPTER *pAd, RX_BLK *pRxBlk)
 
 		pEntry->LastRxRate = (ULONG)(pRxBlk->rx_rate.word);
 
+		 MCS = pEntry->LastRxRate & 0x7F;
+		//int ShortGI = (pEntry->LastRxRate>>8) & 0x1;
+		 BW = (pEntry->LastRxRate>>7) & 0x1;
 
+		//DBGPRINT(RT_DEBUG_OFF, ("**** pEntry->LastRxRate (%X) %d  %d\n", pEntry->LastRxRate, MCS, BW));
+		
 #ifdef DBG_DIAGNOSE
 		if (pAd->DiagStruct.inited) {
 			struct dbg_diag_info *diag_info;

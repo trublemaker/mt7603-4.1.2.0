@@ -88,7 +88,7 @@ config MT_NINTENDO_AP
 	depends on MT_AP_SUPPORT
 
 config MT_COC_SUPPORT
-	bool "CoC Support"
+	bool "CoC Support mt_wifi_ap"
 	depends on MT_AP_SUPPORT
 	default n
 

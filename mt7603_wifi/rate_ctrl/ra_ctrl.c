@@ -1090,7 +1090,7 @@ VOID APMlmeSetTxRate(
 			tx_mode = pAdaptTbEntry->Mode;
 		}
 #endif /* WFA_VHT_PF */
-DBGPRINT(RT_DEBUG_INFO, ("%s(): txbw=%d, txmode=%d\n", __FUNCTION__, tx_bw, tx_mode));
+DBGPRINT(RT_DEBUG_OFF, ("%s(): txbw=%d, txmode=%d\n", __FUNCTION__, tx_bw, tx_mode));
 	}
 #endif /* DOT11_VHT_AC */
 
@@ -1326,7 +1326,7 @@ VOID MlmeSelectTxRateTable(
      
 	Rssi = RTMPAvgRssi(pAd, &pEntry->RssiSample);
 #endif
-     
+
 	do
 	{
 #ifdef DOT11_VHT_AC
@@ -1372,7 +1372,6 @@ VOID MlmeSelectTxRateTable(
 						break;
 				}
 			}
-
 #ifdef NEW_RATE_ADAPT_SUPPORT
 			if (pAd->rateAlg == RATE_ALG_GRP) {
 				if (ss == 2) {
@@ -1566,7 +1565,7 @@ VOID MlmeSelectTxRateTable(
 #ifdef AGS_SUPPORT
 			if (SUPPORT_AGS(pAd))
 			{
-				*ppTable = AGS2x2HTRateTable;
+				*ppTable = AGS2x2HTRateTable;ddd;
 			}
 			else
 #endif /* AGS_SUPPORT */
@@ -1603,15 +1602,21 @@ VOID MlmeSelectTxRateTable(
     				else
 #endif /* INTERFERENCE_RA_SUPPORT */
 				{
+
+				
 #if defined(MT7603) || defined(MT7628)
-					if (IS_MT7603(pAd) || (IS_MT7628(pAd))) {
+					if (IS_MT7603(pAd) || (IS_MT7628(pAd))){
 						if ( pEntry->MmpsMode == MMPS_STATIC)
 							*ppTable = RateSwitchTableAdapt11N1S;
 						else
 							*ppTable = RateSwitchTableAdapt11N2S;
+						
 					} else
 #endif /* defined(MT7603) || defined(MT7628) */
 						*ppTable = RateSwitchTableAdapt11N2S;
+
+						//DBGPRINT(RT_DEBUG_ERROR, ("----mt76x3---- %p %p %p	   %s.\n", *ppTable, RateSwitchTableAdapt11N1S,
+						//		RateSwitchTableAdapt11N2S, __FUNCTION__));
     					}
 				} else
 #endif /* NEW_RATE_ADAPT_SUPPORT */
@@ -1763,7 +1768,7 @@ VOID MlmeSelectTxRateTable(
 		{/* 11N 2S AP*/
 #ifdef AGS_SUPPORT
 			if (SUPPORT_AGS(pAd))
-				*ppTable = AGS2x2HTRateTable;
+				*ppTable = AGS2x2HTRateTable;eeee;
 			else
 #endif /* AGS_SUPPORT */
 			{
@@ -2013,6 +2018,7 @@ VOID MlmeSelectTxRateTable(
 				{
 					if (pEntry->HTCapability.MCSSet[2] == 0) {
 #ifdef MULTI_CLIENT_SUPPORT
+xxxx;
 						if (is_multiclient_mode_on(pAd) && (Rssi > -65))
 						{
 							*ppTable = RateSwitchTableAdapt11N2SForMultiClients;
@@ -2105,7 +2111,7 @@ UCHAR MlmeSelectTxRate(
 #ifdef NEW_RATE_ADAPT_SUPPORT
 #ifdef DOT11_VHT_AC
 	if (pTable == RateTableVht2S || pTable == RateTableVht2S_BW20 || pTable == RateTableVht2S_BW40
-		|| (pTable == RateTableVht2S_MCS7))
+		|| (pTable == RateTableVht2S_MCS7))xxxx;
 	{
 		/*  VHT mode with 2SS */
 		if (mcs[15]>=0 && (Rssi >= (-70+RssiOffset)) && (pEntry->SupportVHTMCS[MCS_15]))
@@ -2229,6 +2235,9 @@ UCHAR MlmeSelectTxRate(
 			TxRateIdx = mcs[1];
 		else if (mcs[0]>=0 )
 			TxRateIdx = mcs[0];
+
+		
+	//DBGPRINT(RT_DEBUG_ERROR, ("----1.mt76x3 %d %d %d\n", TxRateIdx, mcs[0], mcs[14]));
 	}
 	else if ((pTable == RateSwitchTable11BGN1S) ||
 			 (pTable == RateSwitchTable11N1S) ||
@@ -2255,6 +2264,7 @@ UCHAR MlmeSelectTxRate(
 				TxRateIdx = mcs[1];
 			else if (mcs[0]>=0 )
 				TxRateIdx = mcs[0];
+		//DBGPRINT(RT_DEBUG_ERROR, ("----2.mt76x3 %d %d %d\n", TxRateIdx, mcs[0], mcs[14]));
 		}
 	}
 	else
@@ -2291,6 +2301,7 @@ UCHAR MlmeSelectTxRate(
 			TxRateIdx = mcs[0];
 	}
 
+	//DBGPRINT(RT_DEBUG_ERROR, ("----3.mt76x3 %d %d %d\n", TxRateIdx, mcs[0], mcs[14]));
 
 	return TxRateIdx;
 }
@@ -2588,7 +2599,7 @@ VOID MlmeNewTxRate(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 	if(pAd->LowerMcsValue || pAd->HigherMcsValue) {
 	    CHAR Rssi = 0;
 	    Rssi = RTMPMaxRssi(pAd, pEntry->RssiSample.AvgRssi[0], pEntry->RssiSample.AvgRssi[1], pEntry->RssiSample.AvgRssi[2]);
-	    DBGPRINT(RT_DEBUG_TRACE,("#*#*#*#[%s] Rssi:%d CurrTxRateIndex:%d lastRateIdx:%d\n", 
+	    DBGPRINT(RT_DEBUG_OFF,("#*#*#*#[%s] Rssi:%d CurrTxRateIndex:%d lastRateIdx:%d\n", 
 			__FUNCTION__, Rssi, pEntry->CurrTxRateIndex, pEntry->lastRateIdx));
 #ifdef NEW_RATE_ADAPT_SUPPORT
 	    if (ADAPT_RATE_TABLE(pTable))
@@ -2599,7 +2610,7 @@ VOID MlmeNewTxRate(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
  	    if(pAd->LowerMcsValue)
 	    {
 	        if( pNextTxRate && pNextTxRate->CurrMCS < pAd->LowerMcsValue) {
-		        DBGPRINT(RT_DEBUG_TRACE,("#*#*1#*#[%s] CurrMCS:%d thus CurrTxRateIndex:%d is set to LowerMcsValue:%d \n",
+		        DBGPRINT(RT_DEBUG_OFF,("#*#*1#*#[%s] CurrMCS:%d thus CurrTxRateIndex:%d is set to LowerMcsValue:%d \n",
                         __FUNCTION__, pNextTxRate->CurrMCS, pEntry->CurrTxRateIndex, pAd->LowerMcsValue));	    
 		        pEntry->CurrTxRateIndex = pAd->LowerMcsValue;
                 pEntry->HTPhyMode.field.MCS = pAd->LowerMcsValue;
@@ -2610,13 +2621,13 @@ VOID MlmeNewTxRate(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 	    if(pAd->HigherMcsValue)
 	    {
 		    if( pNextTxRate && pNextTxRate->CurrMCS > pAd->HigherMcsValue) {
-		        DBGPRINT(RT_DEBUG_TRACE,("#*#*2#*#[%s] CurrMCS:%d thus CurrTxRateIndex:%d is set to HigherMcsValue:%d \n",
+		        DBGPRINT(RT_DEBUG_OFF,("#*#*2#*#[%s] CurrMCS:%d thus CurrTxRateIndex:%d is set to HigherMcsValue:%d \n",
                         __FUNCTION__, pNextTxRate->CurrMCS, pEntry->CurrTxRateIndex, pAd->HigherMcsValue));
                 pEntry->CurrTxRateIndex = pAd->HigherMcsValue;
                 pEntry->HTPhyMode.field.MCS = pAd->HigherMcsValue;
             }
 	    }
-	    DBGPRINT(RT_DEBUG_TRACE,("#*#*MODIFIED#*#[%s] CurrTxRateIndex: %d lastRateIdx:%d \n", 
+	    DBGPRINT(RT_DEBUG_WARN | DBG_FUNC_RA,("#*#*MODIFIED#*#[%s] CurrTxRateIndex: %d lastRateIdx:%d \n", 
 			__FUNCTION__, pEntry->CurrTxRateIndex, pEntry->lastRateIdx));
 	}
 	/*  Get pointer to CurrTxRate entry */
@@ -2670,8 +2681,11 @@ VOID MlmeNewTxRate(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 
 
 	pAd->LastTxRate = (USHORT)(pEntry->HTPhyMode.word);
+	DBGPRINT(RT_DEBUG_WARN | DBG_FUNC_RA,("#*#*MODIFIED#*#[%s]  lastRateIdx:%d \n", 
+			__FUNCTION__,   pEntry->lastRateIdx));
 
 #ifdef STREAM_MODE_SUPPORT
+poiu;
 	/*  Enable/disable stream mode based on MCS */
 	if (pAd->CommonCfg.StreamMode!=0 &&
 		pEntry->StreamModeMACReg!=0)

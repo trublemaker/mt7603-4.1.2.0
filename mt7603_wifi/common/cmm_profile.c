@@ -1128,7 +1128,7 @@ static void rtmp_read_ap_client_from_file(
 
 			pApCliEntry->wdev.UapsdInfo.bAPSDCapable = \
 									(UCHAR) simple_strtol(macptr, 0, 10);
-			DBGPRINT(RT_DEBUG_ERROR, ("ApCliAPSDCapable[%d]=%d\n", i,
+			DBGPRINT(RT_DEBUG_TRACE, ("ApCliAPSDCapable[%d]=%d\n", i,
 					pApCliEntry->wdev.UapsdInfo.bAPSDCapable));
 	    }
 	}
@@ -1417,7 +1417,7 @@ static void rtmp_read_ap_wmm_parms_from_file(RTMP_ADAPTER *pAd, RTMP_STRING *tmp
 			{
 				pAd->ApCfg.MBSSID[i].wdev.UapsdInfo.bAPSDCapable = \
 										(UCHAR) simple_strtol(macptr, 0, 10);
-				DBGPRINT(RT_DEBUG_ERROR, ("APSDCapable[%d]=%d\n", i,
+				DBGPRINT(RT_DEBUG_WARN, ("APSDCapable[%d]=%d\n", i,
 						pAd->ApCfg.MBSSID[i].wdev.UapsdInfo.bAPSDCapable));
 			}
 	    }
@@ -1432,7 +1432,7 @@ static void rtmp_read_ap_wmm_parms_from_file(RTMP_ADAPTER *pAd, RTMP_STRING *tmp
 			{
 				pAd->ApCfg.MBSSID[i].wdev.UapsdInfo.bAPSDCapable =
 							pAd->ApCfg.MBSSID[0].wdev.UapsdInfo.bAPSDCapable;
-				DBGPRINT(RT_DEBUG_ERROR, ("APSDCapable[%d]=%d\n", i,
+				DBGPRINT(RT_DEBUG_WARN, ("APSDCapable[%d]=%d\n", i,
 						pAd->ApCfg.MBSSID[i].wdev.UapsdInfo.bAPSDCapable));
 			}
 		}
@@ -2203,7 +2203,7 @@ static void HTParametersHook(
 		{
 			pAd->ApCfg.bGreenAPEnable = TRUE;
 		}
-		DBGPRINT(RT_DEBUG_TRACE, ("HT: Green AP= %d\n", pAd->ApCfg.bGreenAPEnable));
+		DBGPRINT(RT_DEBUG_ERROR, ("HT: Green AP= %d\n", pAd->ApCfg.bGreenAPEnable));
 	}
 #endif /* GREENAP_SUPPORT */
 	/* HT_DisallowTKIP*/

@@ -1796,10 +1796,10 @@ INT SetTxRxCr_Proc(RTMP_ADAPTER *pAd, RTMP_STRING *arg)
 		RTMP_IO_WRITE32(pAd, 0x14108, 0x80);
 
 		RTMP_IO_READ32(pAd, 0x2c030, &mac_val);
-		DBGPRINT(RT_DEBUG_ERROR, ("0x60330030=0x%x\n",mac_val));
+		DBGPRINT(RT_DEBUG_ERROR, ("%s 0x60330030=0x%08x\n",__FUNCTION__,mac_val));
 
  		RTMP_IO_READ32(pAd, 0x2c01c, &mac_val);
-		DBGPRINT(RT_DEBUG_ERROR, ("0x6033001C=0x%x\n",mac_val));
+		DBGPRINT(RT_DEBUG_ERROR, ("%s 0x6033001C=0x%08x\n",__FUNCTION__,mac_val));
 	}
 	else if (Dbg == 1)
 	{
@@ -1807,25 +1807,25 @@ INT SetTxRxCr_Proc(RTMP_ADAPTER *pAd, RTMP_STRING *arg)
 		DBGPRINT(RT_DEBUG_ERROR, ("=============================================\n"));
 		DBGPRINT(RT_DEBUG_ERROR, ("RX Status Counter\n"));			
  		RTMP_IO_READ32(pAd, 0x1410c, &mac_val);
-		DBGPRINT(RT_DEBUG_ERROR, ("0x6020410C=0x%x\n",mac_val));
+		DBGPRINT(RT_DEBUG_ERROR, ("0x6020410C=0x%08x\n",mac_val));
 		
 		RTMP_IO_READ32(pAd, 0x14110, &mac_val);
-		DBGPRINT(RT_DEBUG_ERROR, ("0x60204110=0x%x\n",mac_val));
+		DBGPRINT(RT_DEBUG_ERROR, ("0x60204110=0x%08x\n",mac_val));
 
 		RTMP_IO_READ32(pAd, 0x14114, &mac_val);
-		DBGPRINT(RT_DEBUG_ERROR, ("0x60204114=0x%x\n",mac_val));		
+		DBGPRINT(RT_DEBUG_ERROR, ("0x60204114=0x%08x\n",mac_val));		
 
 		RTMP_IO_READ32(pAd, 0x1411c, &mac_val);
-		DBGPRINT(RT_DEBUG_ERROR, ("0x6020411C=0x%x\n",mac_val));
+		DBGPRINT(RT_DEBUG_ERROR, ("0x6020411C=0x%08x\n",mac_val));
 
 		RTMP_IO_READ32(pAd, 0x14120, &mac_val);
-		DBGPRINT(RT_DEBUG_ERROR, ("0x60204120=0x%x\n",mac_val));
+		DBGPRINT(RT_DEBUG_ERROR, ("0x60204120=0x%08x\n",mac_val));
 
 		RTMP_IO_READ32(pAd, 0x2c030, &mac_val);
-		DBGPRINT(RT_DEBUG_ERROR, ("0x60330030=0x%x\n",mac_val));
+		DBGPRINT(RT_DEBUG_ERROR, ("0x60330030=0x%08x\n",mac_val));
 
 		RTMP_IO_READ32(pAd, 0x2c01c, &mac_val);
-		DBGPRINT(RT_DEBUG_ERROR, ("0x6033001C=0x%x\n",mac_val));
+		DBGPRINT(RT_DEBUG_ERROR, ("0x6033001C=0x%08x\n",mac_val));
 
 		DBGPRINT(RT_DEBUG_ERROR, ("=============================================\n"));
 		DBGPRINT(RT_DEBUG_ERROR, ("CCA Status\n"));
@@ -1834,7 +1834,7 @@ INT SetTxRxCr_Proc(RTMP_ADAPTER *pAd, RTMP_STRING *arg)
 		RTMP_IO_WRITE32(pAd, 0x2004c, 0x02021919);
 
 		RTMP_IO_READ32(pAd, 0x20024, &mac_val);
-		DBGPRINT(RT_DEBUG_ERROR, ("0x60000024=0x%x\n",mac_val));
+		DBGPRINT(RT_DEBUG_ERROR, ("0x60000024=0x%08x\n",mac_val));
 		DBGPRINT(RT_DEBUG_ERROR, ("=============================================\n"));
 
 		for (idx=0;idx<10;idx++)

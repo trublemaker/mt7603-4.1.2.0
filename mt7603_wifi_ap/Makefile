@@ -1,6 +1,6 @@
 ifeq ($(CONFIG_SUPPORT_OPENWRT),y)
-ccflags-y = -I$(src)/../mt76x3/include \
-		-I$(src)/../mt76x3/ate/include
+ccflags-y = -I$(src)/../mt7603_wifi/include \
+		-I$(src)/../mt7603_wifi/ate/include
 DRV_NAME = mt76x3_ap
 RT_WIFI_DIR = ../mt7603_wifi
 
@@ -72,7 +72,6 @@ rate_objs := $(RT_WIFI_DIR)/rate_ctrl/ra_ctrl.o\
 ifeq ($(CONFIG_MT7603E_NEW_RATE_ADAPT_SUPPORT),y)
     EXTRA_CFLAGS += -DNEW_RATE_ADAPT_SUPPORT
     rate_objs += $(RT_WIFI_DIR)/rate_ctrl/alg_grp.o
-
     ifeq ($(CONFIG_MT7603E_AGS_SUPPORT),y)
         EXTRA_CFLAGS += -DAGS_ADAPT_SUPPORT
         rate_objs += $(RT_WIFI_DIR)/rate_ctrl/alg_ags.o
@@ -136,15 +135,20 @@ endif
 
 ifeq ($(CONFIG_RT_DEBUG),y)
 	MTDEBUG = y
+	$(info CONFIG_RT_DEBUG $(CONFIG_RT_DEBUG) )
 else
 	ifeq ($(CONFIG_MT76X3_AP_DEBUG),y)
+    $(info CONFIG_MT76X3_AP_DEBUG $(CONFIG_MT76X3_AP_DEBUG) )
 	MTDEBUG = y
 	endif
 endif
 
+$(info CONFIG_MT76X3_AP_DEBUG $(CONFIG_MT76X3_AP_DEBUG)   CONFIG_RT_DEBUG $(CONFIG_RT_DEBUG)  )
+
 ifeq ($(MTDEBUG),y)
-	EXTRA_CFLAGS += -DDBG -DUAPSD_DEBUG
-	#EXTRA_CFLAGS += -DTXRXCR_DEBUG_SUPPORT
+	EXTRA_CFLAGS += -DDBG #mao --2020.04.11
+	EXTRA_CFLAGS += -DUAPSD_DEBUG
+	EXTRA_CFLAGS += -DTXRXCR_DEBUG_SUPPORT 
 	#EXTRA_CFLAGS += -DDBG_DIAGNOSE -DDBG_RX_MCS -DDBG_TX_MCS
 	EXTRA_CFLAGS += -DSYSTEM_LOG_SUPPORT
 	#EXTRA_CFLAGS += -DINT_STATISTIC
@@ -834,7 +838,8 @@ endif
 
 ##***************************************************************
 
-EXTRA_CFLAGS += -DMT_PS -DDMA_RESET_SUPPORT -DTXRXCR_DEBUG_SUPPORT
+EXTRA_CFLAGS += -DMT_PS -DDMA_RESET_SUPPORT 
+#-DTXRXCR_DEBUG_SUPPORT
 EXTRA_CFLAGS += -DMT7603_E1
 EXTRA_CFLAGS += -DMT7603_E2
 EXTRA_CFLAGS += -DEDCCA_RB
@@ -984,6 +989,8 @@ EXTRA_CFLAGS += -DDOT11_N_SUPPORT -DSTATS_COUNT_SUPPORT -DIAPP_SUPPORT -DDOT1X_S
 ifeq ($(CONFIG_RA_HW_NAT_WIFI_NEW_ARCH),n)
 EXTRA_CFLAGS += -DCONFIG_RA_NAT_NONE
 endif
+
+$(info EXTRA_CFLAGS $(EXTRA_CFLAGS))
 
 #provide busy time statistics for every TBTT */
 #EXTRA_CFLAGS += -DQLOAD_FUNC_BUSY_TIME_STATS 

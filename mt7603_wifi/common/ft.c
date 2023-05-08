@@ -249,6 +249,7 @@ static VOID FT_ReqActionParse(
 					pFtInfo->RicInfo.Len = ((UCHAR*)Ptr + Len)
 											- (UCHAR*)eid_ptr + 1;
 				}
+				break;
 			case IE_FT_RIC_DESCRIPTOR:
 				if ((pFtInfo->RicInfo.RicIEsLen + eid_ptr->Len + 2) < MAX_RICIES_LEN)
 				{
@@ -393,6 +394,7 @@ Note:
 	{
 		pFtCfg = &pAd->ApCfg.MBSSID[apidx].FtCfg;
 		pFtCfg->FtCapFlag.Dot11rFtEnable = TRUE;
+		#pragma warning  "pFtCfg->FtCapFlag.Dot11rFtEnable = FALSE"
 #if defined(WH_EZ_SETUP) || defined(MBO_SUPPORT)
 		// Keep false by default as applicable for MAN,
 		// if required for other project, can be enabled by command/dat file.
@@ -1140,12 +1142,12 @@ VOID FT_FtAction(
 				if (!pFtCfg->FtCapFlag.Dot11rFtEnable)
 					goto out;
 
+				NdisZeroMemory(pFtInfoBuf, sizeof(FT_INFO));
 				/* Parse FT-Request action frame. */
 				FT_ReqActionParse(pAd, (FtActLen - sizeof(PFT_ACTION)),
 					pFtAction->Oct, pFtInfo);
 
 				/* FT-Request frame Handler. */
-				NdisZeroMemory(pFtInfoBuf, sizeof(FT_INFO));
 				os_alloc_mem(pAd, (UCHAR **)&(pFtInfoBuf->RicInfo.pRicInfo), 512);
 				if (pFtInfoBuf->RicInfo.pRicInfo != NULL)
 				{

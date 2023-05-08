@@ -4386,7 +4386,7 @@ INT	Set_GreenAP_Proc(RTMP_ADAPTER *pAd, RTMP_STRING *arg)
 	else
 		return FALSE; /*Invalid argument*/
 
-	DBGPRINT(RT_DEBUG_TRACE, ("Set_GreenAP_Proc::(bGreenAPEnable=%d)\n",pAd->ApCfg.bGreenAPEnable));
+	DBGPRINT(RT_DEBUG_ERROR, ("Set_GreenAP_Proc::(bGreenAPEnable=%d)\n",pAd->ApCfg.bGreenAPEnable));
 
 	return TRUE;
 }

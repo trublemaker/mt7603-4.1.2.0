@@ -409,7 +409,7 @@ VOID APMlmeDynamicTxRateSwitching(RTMP_ADAPTER *pAd)
 				pEntry->CurrTxRateIndex = TxRateIdx;
 				MlmeNewTxRate(pAd, pEntry);
 				if (!pEntry->fLastSecAccordingRSSI)
-					DBGPRINT(RT_DEBUG_INFO,("DRS: TxTotalCnt <= 15, switch MCS according to RSSI (%d)\n", Rssi));
+					DBGPRINT(RT_DEBUG_INFO | DBG_FUNC_RA,("DRS: TxTotalCnt <= 15, switch MCS according to RSSI (%d)\n", Rssi));
 			}
 
 			MlmeClearAllTxQuality(pEntry);
